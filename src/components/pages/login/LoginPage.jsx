@@ -1,6 +1,6 @@
-import { LoginForm } from './LoginForm';
+import  LoginForm  from './LoginForm';
 
-const LoginPage = () => {
+function LoginPage() {
  
 
   return (
