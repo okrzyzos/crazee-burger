@@ -1,13 +1,21 @@
 import  LoginForm  from './LoginForm';
+import styled from "styled-components";
+
 
 function LoginPage() {
  
 
   return (
-    <div>
+    <LoginPageStyled>
       <LoginForm />
-    </div>
+    </LoginPageStyled>
   );
 };
+
+
+const LoginPageStyled = styled.div`
+ 
+`;
+
 
 export default LoginPage;
