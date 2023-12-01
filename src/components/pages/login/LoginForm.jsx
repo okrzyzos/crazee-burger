@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../reusable-ui/Logo";
-import theme from '../../../theme/index';
+import theme from "../../../theme/index";
 
 import backgroundImg from "../../../assets/F03-burger-background.jpg";
 import { FaUserCircle } from "react-icons/fa";
@@ -28,11 +28,7 @@ function LoginForm() {
   return (
     <>
       <LoginContainer>
-        <HeaderContainer>
-          <HeaderText>Crazee</HeaderText>
-          <Logo />
-          <HeaderText>Burger</HeaderText>
-        </HeaderContainer>
+        <Logo />
 
         <Title>Bienvenue chez nous !</Title>
         <LineStyled></LineStyled>
@@ -40,7 +36,7 @@ function LoginForm() {
           <Subtitle>Connectez-vous</Subtitle>
 
           <InputWithIcon>
-          <TextInput
+            <TextInput
               type="text"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
@@ -54,21 +50,11 @@ function LoginForm() {
             label="acceder a mon espace "
             Icon={<GoChevronRight className="icon" />}
           />
-
-           
         </LoginFormStyled>
       </LoginContainer>
     </>
   );
 }
-
-const HeaderContainer = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  margin-bottom: 40px;
-`;
 
 const LoginFormStyled = styled.form`
   display: flex;
@@ -87,23 +73,11 @@ const LoginFormStyled = styled.form`
   }
 `;
 
-const HeaderText = styled.div`
-  color: ${theme.colors.white};
-  font-size:${theme.fonts.P3};
-  line-height: 1.2;
-  text-transform: uppercase;
-  font-family: "Amatic SC", cursive;
-  color:${theme.colors.primary};
-  font-size: 85px;
-  font-weight: 700;
-  /* Ajoutez d'autres styles de texte ici */
-`;
-
 const Title = styled.h1`
-  color:${theme.colors.white};
+  color: ${theme.colors.white};
   margin-bottom: 0.5em;
   font-family: "Amatic SC", sans-serif;
-  font-size:${theme.fonts.P6};
+  font-size: ${theme.fonts.P6};
   font-weight: ${theme.weights.bold};
 `;
 
@@ -111,7 +85,7 @@ const Subtitle = styled.h3`
   color: ${theme.colors.white};
   margin-bottom: 25px;
   font-family: "Amatic SC", sans-serif;
-  font-size:${theme.fonts.P4};
+  font-size: ${theme.fonts.P4};
 `;
 
 const LoginContainer = styled.div`
@@ -137,7 +111,7 @@ const InputWithIcon = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius:${theme.borderRadius.round};
+  border-radius: ${theme.borderRadius.round};
   padding: 10px;
   padding-left: 35px;
   margin: 15px;
