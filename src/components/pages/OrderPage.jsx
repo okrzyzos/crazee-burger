@@ -1,35 +1,41 @@
 import React from "react";
-import { useNavigate  ,useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import Navbar from "./Navbar";
+import Main from "./Main";
+import theme from "../../theme/index";
 
 
 function OrderPage() {
-  const {firstName} = useParams();
+  const { firstName } = useParams();
   const navigate = useNavigate();
   return (
     <OrderPageStyled>
-      {firstName && <h1>Bonjour {firstName}</h1>}
-      <br />
-      <button onClick={() => navigate("/")}>
-        Retourner vers la page d'accueil
-      </button>
+      <div className="container">
+        <Navbar username={firstName} />
+        <Main />
+      </div>
     </OrderPageStyled>
   );
 }
 
-
 const OrderPageStyled = styled.div`
+  background-color:${theme.colors.primary};
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-position: absolute; 
-top: 0;
-left: 0;
-margin: 0;
-padding: 20px; 
+  .container {
+    background: #F5F5F7;
+    height: 95vh;
+    width: 1400px;
+    display: flex;
+    flex-direction: column;
+    border-radius:${theme.borderRadius.extraRound};
+  }
 
-h1 {
-  color: coral;
-}
-
-`
+  
+`;
 
 export default OrderPage;
