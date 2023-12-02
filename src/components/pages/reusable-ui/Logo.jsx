@@ -4,11 +4,11 @@ import logo from "../../../assets/F03-logo-orange.png";
 import theme from "../../../theme/index";
 
 
-function Logo({ size = "300px", fontSize = "85px",onClick}) {
+function Logo({ className, fontSize = "95px",onClick}) {
   return (
   <HeaderContainer onClick={onClick}>
     <HeaderText fontSize={fontSize}>Crazee</HeaderText>
-    <LogoStyled src={logo} alt="Logo" size={size} />
+    <LogoStyled src={logo} alt="Logo" className={className} />
     <HeaderText fontSize={fontSize}>Burger</HeaderText>
   </HeaderContainer>
 
@@ -20,7 +20,7 @@ const LogoStyled = styled.img`
   // Vous pouvez également spécifier d'autres propriétés CSS si nécessaire
 
   // Ajoutez la taille souhaitée pour votre logo ici
-  width: ${(props) => props.size};
+  width: 300px;
   height: auto;
   object-fit: contain;
   margin: 0;
@@ -36,7 +36,7 @@ const HeaderContainer = styled.header`
 
 const HeaderText = styled.div`
   color: ${theme.colors.white};
-  font-size:${theme.fonts.P3};
+  font-size:${theme.fonts.size.P3};
   line-height: 1.2;
   text-transform: uppercase;
   font-family: "Amatic SC", cursive;
