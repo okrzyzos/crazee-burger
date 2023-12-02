@@ -2,8 +2,7 @@ import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import theme from "../../theme/index";
-
+import theme from "../../../theme/index";
 
 function Profil({ username }) {
   const navigate = useNavigate();

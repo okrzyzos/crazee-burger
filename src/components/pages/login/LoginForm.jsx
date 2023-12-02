@@ -10,7 +10,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 
 import { GoChevronRight } from "react-icons/go";
 import TextInput from "../reusable-ui/TextInput";
-import ButtonPrimary from "../reusable-ui/ButtonPrimary";
+import PrimaryButton from "../reusable-ui/PrimaryButton";
 
 function LoginForm() {
   const [firstName, setFirstName] = useState("");
@@ -45,11 +45,11 @@ function LoginForm() {
               Icon={<FaUserCircle className="icon" />}
             />
           </InputWithIcon>
-
-          <ButtonPrimary
-            label="acceder a mon espace "
-            Icon={<GoChevronRight className="icon" />}
-          />
+            <PrimaryButton
+              label="acceder a mon espace "
+              Icon={<GoChevronRight className="icon" />}
+              className="button"
+            />
         </LoginFormStyled>
       </LoginContainer>
     </>
@@ -64,7 +64,14 @@ const LoginFormStyled = styled.form`
   margin-bottom: 100px;
   max-width: 500px;
   min-width: 500px;
+  width: 100%; // Make the form take the full width of its parent
 
+ 
+.button {
+  width:400px;
+  height:70px;
+  margin-left: 25px;
+}
   .icon {
     margin-left: 10px;
     display: flex;
@@ -77,15 +84,15 @@ const Title = styled.h1`
   color: ${theme.colors.white};
   margin-bottom: 0.5em;
   font-family: "Amatic SC", sans-serif;
-  font-size: ${theme.fonts.P6};
-  font-weight: ${theme.weights.bold};
+  font-size: ${theme.fonts.size.P6};
+  font-weight: ${theme.fonts.weights.bold};
 `;
 
 const Subtitle = styled.h3`
   color: ${theme.colors.white};
   margin-bottom: 25px;
   font-family: "Amatic SC", sans-serif;
-  font-size: ${theme.fonts.P4};
+  font-size: ${theme.fonts.size.P4};
 `;
 
 const LoginContainer = styled.div`
@@ -100,6 +107,7 @@ const LoginContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
   text-align: center;
 `;
 const LineStyled = styled.div`
@@ -116,10 +124,13 @@ const InputWithIcon = styled.div`
   padding-left: 35px;
   margin: 15px;
 
+
+
   input {
     flex: 1; // Prend toute la largeur disponible
     border: none;
     margin-left: 45px; // Espace entre l'icône et l'input
+    
 
     &:focus {
       outline: none;
@@ -132,6 +143,10 @@ const InputWithIcon = styled.div`
     font-size: 20px; // Taille de l'icône
     color: ${theme.colors.greyMedium};
   }
+`;
+const PrimaryButtonStyled = styled.button`
+  width: 100%; // Ensure the button takes the full width of its container
+  // ... other styles ...
 `;
 
 export default LoginForm;
