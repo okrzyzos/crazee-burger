@@ -11,6 +11,8 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { GoChevronRight } from "react-icons/go";
 import TextInput from "../reusable-ui/TextInput";
 import PrimaryButton from "../reusable-ui/PrimaryButton";
+import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 
 function LoginForm() {
   const [firstName, setFirstName] = useState("");
@@ -22,6 +24,7 @@ function LoginForm() {
     if (firstName) {
       navigate(`/order-page/${firstName}`);
       setFirstName("");
+      toast.success("connexion réussie");
     }
   };
 
@@ -45,12 +48,13 @@ function LoginForm() {
               Icon={<FaUserCircle className="icon" />}
             />
           </InputWithIcon>
-            <PrimaryButton
-              label="acceder a mon espace "
-              Icon={<GoChevronRight className="icon" />}
-              className="button"
-            />
+          <PrimaryButton
+            label="acceder a mon espace "
+            Icon={<GoChevronRight className="icon" />}
+            className="button"
+          />
         </LoginFormStyled>
+       
       </LoginContainer>
     </>
   );
@@ -66,12 +70,11 @@ const LoginFormStyled = styled.form`
   min-width: 500px;
   width: 100%; // Make the form take the full width of its parent
 
- 
-.button {
-  width:400px;
-  height:70px;
-  margin-left: 25px;
-}
+  .button {
+    width: 400px;
+    height: 70px;
+    margin-left: 25px;
+  }
   .icon {
     margin-left: 10px;
     display: flex;
@@ -124,13 +127,10 @@ const InputWithIcon = styled.div`
   padding-left: 35px;
   margin: 15px;
 
-
-
   input {
     flex: 1; // Prend toute la largeur disponible
     border: none;
     margin-left: 45px; // Espace entre l'icône et l'input
-    
 
     &:focus {
       outline: none;
