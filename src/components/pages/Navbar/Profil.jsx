@@ -3,9 +3,21 @@ import { FaUserCircle } from "react-icons/fa";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import theme from "../../../theme/index";
+import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 
 function Profil({ username }) {
   const navigate = useNavigate();
+
+  const handleDeconnexion = () => {
+    // Afficher le toast avant la redirection
+    toast.success("Déconnexion réussie");
+
+    // Logique de déconnexion (effacer le token, nettoyer l'état, etc.)
+
+    // Rediriger vers la page d'accueil ou de connexion
+    navigate("/");
+  };
 
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -26,7 +38,7 @@ function Profil({ username }) {
         )}
         <br />
 
-        <span className="deconnection" onClick={() => navigate("/")}>
+        <span className="deconnection" onClick={handleDeconnexion}>
           {" "}
           Se déconnecter
         </span>
@@ -60,6 +72,10 @@ const ProfilStyled = styled.div`
 
   .color-text-user {
     color: #ffa01b;
+  }
+
+  span:hover {
+    text-decoration:underline;
   }
 `;
 
