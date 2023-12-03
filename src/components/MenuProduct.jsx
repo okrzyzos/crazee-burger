@@ -6,9 +6,9 @@ import { formatPrice } from "../utils/maths";
 function MenuProduct({ menu }) {
   return (
     <ProductStyled>
-      {menu.map(({ id, title, imageSource, price }) => (
+      {menu.map(({ id, title, imageSource, price },index) => (
         <CardProduct
-        key={id}
+        key={`${id}-${index}`}
         title={title}
         imageSource={imageSource}
         leftDescription={formatPrice(price)} />
