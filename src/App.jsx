@@ -10,7 +10,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" exact   element={<LoginPage />} />
-        <Route path="/order-page/:firstName" element={<OrderPage />} />
+        <Route path="/order-page/:username" element={<OrderPage />} />
         <Route path="*" element={<PageErreur />} />{" "}
       </Routes>
     </>
