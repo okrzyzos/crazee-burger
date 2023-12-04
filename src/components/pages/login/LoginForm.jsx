@@ -12,18 +12,18 @@ import { GoChevronRight } from "react-icons/go";
 import TextInput from "../reusable-ui/TextInput";
 import PrimaryButton from "../reusable-ui/PrimaryButton";
 import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 function LoginForm() {
-  const [firstName, setFirstName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (firstName) {
-      navigate(`/order-page/${firstName}`);
-      setFirstName("");
+    if (username) {
+      navigate(`/order-page/${username}`);
+      setUsername("");
       toast.success("connexion réussie");
     }
   };
@@ -41,8 +41,8 @@ function LoginForm() {
           <InputWithIcon>
             <TextInput
               type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               placeholder="Entrez votre prénom"
               required
               Icon={<FaUserCircle className="icon" />}
