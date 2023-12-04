@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
-      <ToastContainer  position="bottom-right" />
+      <ToastContainer  position="bottom-right" theme="dark" />
     </BrowserRouter>
   </React.StrictMode>
 );
