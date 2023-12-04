@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import theme from "../../../../theme/index";
-import MenuProduct from "../../../MenuProduct";
+import MenuProduct from "./MenuProduct";
 import { fakeMenu1, fakeMenu2 } from "../../../../api/Data";
+import Admin from "./admin/Admin";
+import OrderContext from "../../../../context/OrderContext";
 
 function Main() {
   const [menuData, setMenuData] = useState([]);
+  const { isAdminMode, setAdminMode } = useContext(OrderContext);
 
   useEffect(() => {
     // Simulate fetching data with a timeout
@@ -24,8 +27,10 @@ function Main() {
   return (
     <MainStyled className="main">
       <div className="basket"></div>
-      <div className="menu"></div>
-      <MenuProduct menu={menuData} />
+      <div className="menu-admin">
+        <MenuProduct menu={menuData} />
+        {isAdminMode && <Admin />}
+      </div>
     </MainStyled>
   );
 }
@@ -36,8 +41,19 @@ const MainStyled = styled.div`
   overflow-y: auto;
   flex: 1;
   display: grid;
-  grid-template-columns:1fr;
+  // grid-template-columns: 25% 1fr;
+  grid-template-columns: 1fr;
+  // .basket {
+  //   background-color: pink;
+  // }
 
+  .menu-admin {
+    position: relative;
+    border-bottom-left-radius: ${theme.borderRadius.extraRound};
+    border-bottom-right-radius: ${theme.borderRadius.extraRound};
+    overflow-y: hidden;
+    display: grid;
+  }
 `;
 
 export default Main;
