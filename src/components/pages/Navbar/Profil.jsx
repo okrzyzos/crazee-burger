@@ -1,13 +1,15 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useParams} from "react-router-dom";
 import theme from "../../../theme/index";
 import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
-function Profil({ username }) {
+function Profil() {
   const navigate = useNavigate();
+  const { username } = useParams();
+
 
   const handleDeconnexion = () => {
     // Afficher le toast avant la redirection

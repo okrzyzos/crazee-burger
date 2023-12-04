@@ -1,17 +1,18 @@
 import React from "react";
-import CardProduct from "./pages/reusable-ui/CardProduct";
+import CardProduct from "../../reusable-ui/CardProduct";
 import styled from "styled-components";
-import { formatPrice } from "../utils/maths";
+import { formatPrice } from "../../../../utils/maths";
 
 function MenuProduct({ menu }) {
   return (
     <ProductStyled>
-      {menu.map(({ id, title, imageSource, price },index) => (
+      {menu.map(({ id, title, imageSource, price }, index) => (
         <CardProduct
-        key={`${id}-${index}`}
-        title={title}
-        imageSource={imageSource}
-        leftDescription={formatPrice(price)} />
+          key={`${id}-${index}`}
+          title={title}
+          imageSource={imageSource}
+          leftDescription={formatPrice(price)}
+        />
       ))}
     </ProductStyled>
   );
@@ -21,6 +22,7 @@ const ProductStyled = styled.div`
   grid-template-columns: repeat(4, 1fr); // Creates 4 columns of equal width
   gap: 20px; // Adjust the space between the cards
   padding: 50px 50px 150px; // Adds some padding around the grid
+  overflow-y: scroll;
 
   justify-items: center;
 

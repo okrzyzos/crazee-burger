@@ -6,12 +6,12 @@ import { refresh } from "../../../utils/window";
 import theme from "../../../theme/index";
 
 
-function Navbar({ username }) {
+function Navbar() {
   return (
     <NavbarStyled>
       <Logo  fontSize="55px" className="logo" onClick={refresh} />
 
-      <NavbarRightSide username={username} />
+      <NavbarRightSide  />
     </NavbarStyled>
   );
 }

@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import Profil from "./Profil";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import ToggleButton from "../reusable-ui/ToggleButton";
+import OrderContext from "../../../context/OrderContext";
 
-function NavbarRightSide({ username }) {
-  const [isAdminMode, setAdminMode] = useState(false);
+function NavbarRightSide() {
+
+  const { isAdminMode, setAdminMode } = useContext(OrderContext);
 
   const handleToggle = () => {
     setAdminMode(!isAdminMode);
@@ -26,7 +28,7 @@ function NavbarRightSide({ username }) {
           />
         </div>
 
-        <Profil username={username} />
+        <Profil />
       </NavbarRightSideStyled>
     </>
   );
@@ -47,6 +49,8 @@ const NavbarRightSideStyled = styled.div`
     outlined:none;
     border;none ;
   }
+
+  
 `;
 
 export default NavbarRightSide;
