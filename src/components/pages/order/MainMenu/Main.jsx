@@ -9,8 +9,8 @@ import OrderContext from "../../../../context/OrderContext";
 import PrimaryButton from "../../reusable-ui/PrimaryButton";
 
 function Main() {
-  const [menuData, setMenuData] = useState([]);
-  const { isAdminMode, setAdminMode } = useContext(OrderContext);
+  // const [menuData, setMenuData] = useState([]);
+  const { isAdminMode, setAdminMode, menuData,setMenuData } = useContext(OrderContext);
   const [menuEmptiedInAdmin, setMenuEmptiedInAdmin] = useState(false);
   const isMenuEmpty = menuData.length === 0;
 
@@ -36,9 +36,7 @@ function Main() {
     toast.success("Produits régénérés avec succès !");
   };
 
-  const addProductToMenu = (newProduct) => {
-    setMenuData([...menuData, newProduct]);
-  };
+ 
 
   const deleteProductFromMenu = (productId) => {
     const updatedMenu = menuData.filter((item) => item.id !== productId);
@@ -87,7 +85,7 @@ function Main() {
           isAdmin={isAdminMode}
         />
 
-        {isAdminMode && <Admin onAddProduct={addProductToMenu} />}
+        {isAdminMode && <Admin  />}
       </div>
     </MainStyled>
   );
