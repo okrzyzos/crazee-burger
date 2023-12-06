@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import { FaHamburger } from "react-icons/fa";
 import { MdPhotoCamera } from "react-icons/md";
 import { MdOutlineEuroSymbol } from "react-icons/md";
 import imgDefault from '../../../../../../public/images/coming-soon.png';
+import OrderContext from "../../../../../context/OrderContext";
+
 
 const AddProductContainer = styled.div`
   display: grid;
@@ -12,7 +14,7 @@ const AddProductContainer = styled.div`
   gap: 20px; // Ajoute un espace entre les colonnes
   margin-left: 55px;
   align-items: start; // Aligner les éléments au début de chaque colonne
-  padding: 20px; // Ajouter un peu de padding autour du contenu
+  padding: 30px; // Ajouter un peu de padding autour du contenu
 `;
 
 const InputGroup = styled.div`
@@ -54,7 +56,6 @@ const ImagePreview = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #E4E5E9;
   height: 120px; // Définir une hauteur fixe pour la prévisualisation de l'image
   width: 215px;
 
@@ -75,16 +76,18 @@ const Button = styled.button`
   margin-top: 10px;
 `;
 
-function AddProductForm({ onAddProduct }) {
+function AddProductForm() {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [imageSource, setImageSource] = useState(imgDefault);
+  const { addProductToMenu } = useContext(OrderContext);
+
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const newProduct = { title, price, imageSource }; // Créez l'objet produit ici
-    onAddProduct(newProduct); // Utilisez la fonction passée en prop 
+    addProductToMenu(newProduct); // Utilisez la fonction passée en prop 
     toast.success("Ajouté avec succès !");
     setTitle("");
     setPrice("");
@@ -94,7 +97,7 @@ function AddProductForm({ onAddProduct }) {
   return (
     <AddProductContainer>
       <ImagePreview>
-        {imageSource ? <img src={imageSource} alt="Prévisualisation" /> : <img src={imgDefault} />}
+        {imageSource ? <img src={imageSource} alt="image" /> : <img src={imgDefault} />}
       </ImagePreview>
       <Form onSubmit={handleSubmit}>
         <InputGroup>
