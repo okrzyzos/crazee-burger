@@ -1,16 +1,24 @@
-import { useContext } from "react"
-import styled from "styled-components"
-import OrderContext from "../../../../../context/OrderContext"
-import  theme  from "../../../../../theme"
-import { tabsConfig, getTabSelected } from "./tabsConfig"
+import { useContext } from "react";
+import styled from "styled-components";
+import OrderContext from "../../../../../context/OrderContext";
+import theme from "../../../../../theme";
+import { tabsConfig, getTabSelected } from "./tabsConfig";
+import AddProductForm from "./AddproductForm";
 
 export default function AdminPanel() {
-  const { currentTabSelected } = useContext(OrderContext)
+  const { currentTabSelected } = useContext(OrderContext);
 
-  const tabs = tabsConfig
-  const tabSelected = getTabSelected(tabs, currentTabSelected)
+  const tabs = tabsConfig;
+  const tabSelected = getTabSelected(tabs, currentTabSelected);
 
-  return <AdminPanelStyled>{tabSelected.label}</AdminPanelStyled>
+  const showAddProductForm = currentTabSelected === "add";
+
+  return <AdminPanelStyled>
+  
+  {showAddProductForm && <AddProductForm  />}
+  
+  
+  </AdminPanelStyled>;
 }
 
 const AdminPanelStyled = styled.div`
@@ -20,4 +28,4 @@ const AdminPanelStyled = styled.div`
   background: ${theme.colors.white};
   border-top: 1px solid ${theme.colors.greyLight};
   box-shadow: ${theme.shadows.subtle};
-`
+`;

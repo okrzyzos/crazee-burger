@@ -9,9 +9,15 @@ import OrderContext from "../../../context/OrderContext";
 function OrderPage() {
   const [isAdminMode, setAdminMode] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false)
+  const [menuData, setMenuData] = useState([]);
+
   const [currentTabSelected, setCurrentTabSelected] = useState("add")
 
   const navigate = useNavigate();
+
+  const addProductToMenu = (newProduct) => {
+    setMenuData([...menuData, newProduct]);
+  };
 
 
   const orderContextValue = {
@@ -20,14 +26,17 @@ function OrderPage() {
     isCollapsed,
     currentTabSelected,
     setCurrentTabSelected,
-    setIsCollapsed
+    setIsCollapsed,
+    addProductToMenu,
+    menuData,
+    setMenuData
   }
   return (
     <OrderContext.Provider value={orderContextValue}>
       <OrderPageStyled>
         <div className="container">
           <Navbar  />
-          <Main />
+          <Main   />
         </div>
       </OrderPageStyled>
     </OrderContext.Provider>

@@ -3,7 +3,7 @@ import CardProduct from "../../reusable-ui/CardProduct";
 import styled from "styled-components";
 import { formatPrice } from "../../../../utils/maths";
 
-function MenuProduct({ menu }) {
+function MenuProduct({ menu,onDeleteProduct,isAdmin }) {
   return (
     <ProductStyled>
       {menu.map(({ id, title, imageSource, price }, index) => (
@@ -12,7 +12,12 @@ function MenuProduct({ menu }) {
           title={title}
           imageSource={imageSource}
           leftDescription={formatPrice(price)}
+          onDeleteProduct={onDeleteProduct}
+          id={id}
+          isAdmin={isAdmin}
+          
         />
+        
       ))}
     </ProductStyled>
   );

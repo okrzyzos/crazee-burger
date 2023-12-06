@@ -2,11 +2,27 @@ import React from "react";
 import styled from "styled-components";
 import theme from "../../../theme/index";
 import PrimaryButton from "./PrimaryButton";
+import { TiDelete } from "react-icons/ti";
+import { toast, ToastContainer } from "react-toastify";
 
-
-export default function CardProduct({ title, imageSource, leftDescription }) {
+export default function CardProduct({
+  title,
+  imageSource,
+  leftDescription,
+  onDeleteProduct,
+  id,
+  isAdmin,
+}) {
   return (
     <CardStyled className="produit">
+      <div className="button-delete">
+        {isAdmin && (
+          <div onClick={() => onDeleteProduct(id)}>
+            <TiDelete size={30} />
+          </div>
+        )}
+      </div>
+
       <div className="image">
         <img src={imageSource} alt={title} />
       </div>
@@ -20,7 +36,7 @@ export default function CardProduct({ title, imageSource, leftDescription }) {
         </div>
       </div>
     </CardStyled>
-  )
+  );
 }
 
 const CardStyled = styled.div`
@@ -33,6 +49,7 @@ const CardStyled = styled.div`
   padding-bottom: 10px;
   box-shadow: -8px 8px 20px 0px rgb(0 0 0 / 20%);
   border-radius: ${theme.borderRadius.extraRound};
+  position: relative;
 
   .image {
     width: 100%;
@@ -95,7 +112,6 @@ const CardStyled = styled.div`
           cursor: pointer;
           padding: 12px;
 
-
           &:hover {
             color: ${theme.colors.primary};
             background-color: ${theme.colors.white};
@@ -105,4 +121,21 @@ const CardStyled = styled.div`
       }
     }
   }
-`
+
+  .button-delete {
+    top: 0;
+    position: absolute;
+    right: 0px;
+    padding: 10px;
+    cursor: pointer;
+
+    svg {
+      color: #ffa01b; // Couleur initiale
+      transition: color 0.3s;
+
+      &:hover {
+        color: red; // Couleur au survol
+      }
+    }
+  }
+`;
