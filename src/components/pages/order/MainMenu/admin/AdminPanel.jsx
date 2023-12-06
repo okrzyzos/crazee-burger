@@ -5,7 +5,7 @@ import theme from "../../../../../theme";
 import { tabsConfig, getTabSelected } from "./tabsConfig";
 import AddProductForm from "./AddproductForm";
 
-export default function AdminPanel({onAddProduct}) {
+export default function AdminPanel() {
   const { currentTabSelected } = useContext(OrderContext);
 
   const tabs = tabsConfig;
@@ -15,7 +15,7 @@ export default function AdminPanel({onAddProduct}) {
 
   return <AdminPanelStyled>
   
-  {showAddProductForm && <AddProductForm onAddProduct={onAddProduct} />}
+  {showAddProductForm && <AddProductForm  />}
   
   
   </AdminPanelStyled>;
