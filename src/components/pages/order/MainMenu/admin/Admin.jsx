@@ -4,13 +4,13 @@ import OrderContext from "../../../../../context/OrderContext"
 import AdminPanel from "./AdminPanel"
 import AdminTabs from "./AdminTabs"
 
-export default function Admin() {
+export default function Admin({onAddProduct}) {
   const { isCollapsed } = useContext(OrderContext)
 
   return (
     <AdminStyled>
       <AdminTabs />
-      {!isCollapsed && <AdminPanel />}
+      {!isCollapsed && <AdminPanel onAddProduct={onAddProduct} />}
     </AdminStyled>
   )
 }
