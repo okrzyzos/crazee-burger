@@ -17,6 +17,7 @@ const Form = React.forwardRef(
     return (
       <FormStyled onSubmit={onSubmit}>
         <ImagePreview
+        className="image"
           imageSource={product.imageSource}
           title={product.title}
           marginTop="55px"
@@ -33,11 +34,11 @@ const Form = React.forwardRef(
           ))}
          
         </div>
-        <PrimaryButton
+        {/* <PrimaryButton
             label="Valider la modification"
             className="button"
             onClick={() => handleEdit(product)}
-          />
+          /> */}
         <div className="form-footer">{children}</div>
       </FormStyled>
     );
@@ -73,6 +74,11 @@ const FormStyled = styled.form`
     align-items: center;
     position: relative;
     top: 3px;
+  }
+
+  .image {
+    height: 200px; /* Adjusted height */
+    width: 230px;
   }
 
   .button {

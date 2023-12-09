@@ -12,6 +12,7 @@ const AddProductContainer = styled.div`
   grid-template-columns: 20% 20% 20% 20% 20%;
   gap: 10px; // Ajoute un espace entre les colonnes
   display: grid;
+  padding: 5px;
   // grid-template-rows: repeat(4, 1fr);
   grid-column-gap: 20px;
   margin-left: 7px;
@@ -32,8 +33,8 @@ const InputGroup = styled.div`
   align-items: center;
   background: #f5f5f7;
   border-radius: 5px;
-  width: 665px;
-  height: 50px;
+  width: 425px;
+  height: 40px;
   outline: none;
 `;
 
@@ -59,16 +60,19 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px; // Ajoute un espace entre les champs du formulaire
+  margin-left:70px;
 `;
 
 const Button = styled.button`
-  padding: 12px;
+  padding: 15px;
   border-radius: 5px;
   cursor: pointer;
   background-color: #82cb73;
   color: white;
   border: none;
   margin-bottom: 10px;
+  font-size:15px;
+  width: 300px;
 `;
 
 function AddProductForm() {
