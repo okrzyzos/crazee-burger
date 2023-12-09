@@ -1,21 +1,33 @@
-import React, { useContext } from "react"
-import styled from "styled-components"
-import Tab from "../../../reusable-ui/Tab";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi"
-import  theme  from "../../../../../theme"
-import OrderContext from "../../../../../context/OrderContext"
-import { tabsConfig } from "./tabsConfig"
+import React, { useContext ,useState} from "react";
+import styled from "styled-components";
+import Tab from "../../../../reusable-ui/Tab";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import theme from "../../../../../../theme/index";
+import OrderContext from "../../../../../../context/OrderContext";
+import { tabsConfig } from "./tabsConfig";
 
 export default function AdminTabs() {
-  const { isCollapsed, setIsCollapsed, currentTabSelected, setCurrentTabSelected } =
-    useContext(OrderContext)
+  const {
+    isCollapsed,
+    setIsCollapsed,
+    currentTabSelected,
+    setCurrentTabSelected,
+    productSelected
+  } = useContext(OrderContext);
+
+
+  // const [currentProduct, setCurrentProduct] = useState(null);
 
   const selectTab = (tabSelected) => {
-    setIsCollapsed(false) // ouvre moi le panel dans tous les cas
-    setCurrentTabSelected(tabSelected) // réactualise l'onglet sélectionné
-  }
+    setIsCollapsed(false); // ouvre moi le panel dans tous les cas
+    setCurrentTabSelected(tabSelected); // réactualise l'onglet sélectionné
 
-  const tabs = tabsConfig
+    
+
+  };
+
+
+  const tabs = tabsConfig;
 
   // affichage
   return (
@@ -34,8 +46,9 @@ export default function AdminTabs() {
           className={currentTabSelected === tab.index ? "is-active" : ""}
         />
       ))}
+
     </AdminTabsStyled>
-  )
+  );
 }
 
 const AdminTabsStyled = styled.div`
@@ -51,4 +64,4 @@ const AdminTabsStyled = styled.div`
   button {
     margin-left: 1px;
   }
-`
+`;

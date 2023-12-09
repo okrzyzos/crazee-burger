@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import NavbarRightSide from "./NavbarRightSide";
-import Logo from "../reusable-ui/Logo";
-import { refresh } from "../../../utils/window";
-import theme from "../../../theme/index";
+import Logo from "../../reusable-ui/Logo";
+import { refresh } from "../../../../utils/window";
+import theme from "../../../../theme/index";
 
 
 function Navbar() {

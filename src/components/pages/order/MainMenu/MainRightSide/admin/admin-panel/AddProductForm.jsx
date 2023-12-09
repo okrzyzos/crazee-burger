@@ -1,20 +1,30 @@
-import React, { useState ,useContext} from "react";
-import styled from "styled-components";
+import React, { useState, useContext } from "react";
+import styled, { css } from "styled-components";
 import { toast } from "react-toastify";
 import { FaHamburger } from "react-icons/fa";
 import { MdPhotoCamera } from "react-icons/md";
 import { MdOutlineEuroSymbol } from "react-icons/md";
-import imgDefault from '../../../../../../public/images/coming-soon.png';
-import OrderContext from "../../../../../context/OrderContext";
-
+import OrderContext from "../../../../../../../context/OrderContext";
+import theme from "../../../../../../../theme";
+import ImagePreview from "./ImagePreview";
 
 const AddProductContainer = styled.div`
-  display: grid;
   grid-template-columns: 20% 20% 20% 20% 20%;
-  gap: 20px; // Ajoute un espace entre les colonnes
-  margin-left: 55px;
-  align-items: start; // Aligner les éléments au début de chaque colonne
-  padding: 30px; // Ajouter un peu de padding autour du contenu
+  gap: 10px; // Ajoute un espace entre les colonnes
+  display: grid;
+  // grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 20px;
+  margin-left: 7px;
+  margin-top: 20px;
+  width: 100%;
+
+`;
+
+const ImagePreviewContainer = styled.div`
+  height: 200px; /* Adjusted height */
+  width: 230px;
+
+
 `;
 
 const InputGroup = styled.div`
@@ -22,29 +32,28 @@ const InputGroup = styled.div`
   align-items: center;
   background: #f5f5f7;
   border-radius: 5px;
-  width: 645px;
-  height: 35px;
-  padding: 0 12px;
+  width: 665px;
+  height: 50px;
+  outline: none;
 `;
 
 const Icon = styled.span`
-  color: #747B91;
-  margin-right: 10px;
+  color: ${theme.colors.greyBlue};
+
+  margin-left: 25px;
 `;
 
 const Input = styled.input`
   border: none;
   background: transparent;
-  color: #A7A8AD;
   width: 100%;
-
   outline: none;
+  padding: 10px;
 
   &::placeholder {
-    color: #A7A8AD;
+    color: ${theme.colors.greyMedium};
   }
 `;
-
 
 const Form = styled.form`
   display: flex;
@@ -52,53 +61,46 @@ const Form = styled.form`
   gap: 10px; // Ajoute un espace entre les champs du formulaire
 `;
 
-const ImagePreview = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 120px; // Définir une hauteur fixe pour la prévisualisation de l'image
-  width: 215px;
-
-  img{
-    width: 100%;
-  }
-`;
-
-
-
 const Button = styled.button`
-  padding: 10px 20px;
+  padding: 12px;
   border-radius: 5px;
   cursor: pointer;
   background-color: #82cb73;
   color: white;
   border: none;
-  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 function AddProductForm() {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
-  const [imageSource, setImageSource] = useState(imgDefault);
+  const imgDefault = "/images/coming-soon.png";
+
+  const [imageSource, setImageSource] = useState("");
   const { addProductToMenu } = useContext(OrderContext);
-
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const newProduct = { title, price, imageSource }; // Créez l'objet produit ici
-    addProductToMenu(newProduct); // Utilisez la fonction passée en prop 
+    addProductToMenu(newProduct); // Utilisez la fonction passée en prop
     toast.success("Ajouté avec succès !");
     setTitle("");
     setPrice("");
-    setImageSource(imgDefault);
+    setImageSource("");
   };
 
   return (
     <AddProductContainer>
-      <ImagePreview>
-        {imageSource ? <img src={imageSource} alt="image" /> : <img src={imgDefault} />}
-      </ImagePreview>
+      <ImagePreviewContainer>
+        <ImagePreview
+          imageSource={imageSource}
+          title={title}
+          className="image"
+          marginTop="0"
+         
+        />
+      </ImagePreviewContainer>
+
       <Form onSubmit={handleSubmit}>
         <InputGroup>
           <Icon>

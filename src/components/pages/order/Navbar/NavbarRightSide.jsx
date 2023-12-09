@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Profil from "./Profil";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-import ToggleButton from "../reusable-ui/ToggleButton";
-import OrderContext from "../../../context/OrderContext";
+import ToggleButton from "../../reusable-ui/ToggleButton";
+import OrderContext from "../../../../context/OrderContext";
 
 function NavbarRightSide() {
 

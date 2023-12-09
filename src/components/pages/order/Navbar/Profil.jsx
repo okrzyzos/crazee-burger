@@ -2,7 +2,7 @@ import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import styled from "styled-components";
 import { useNavigate , useParams} from "react-router-dom";
-import theme from "../../../theme/index";
+import theme from "../../../../theme";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
