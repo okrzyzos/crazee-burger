@@ -1,7 +1,11 @@
-import styled, { css } from "styled-components"
-import { theme } from "../../../theme"
-import { TiDelete } from "react-icons/ti"
-import PrimaryButton from './PrimaryButton';
+import React, { useContext } from "react";
+import { toast } from "react-toastify";
+
+import styled, { css } from "styled-components";
+import { theme } from "../../../theme";
+import { TiDelete } from "react-icons/ti";
+import PrimaryButton from "./PrimaryButton";
+import OrderContext from "../../../context/OrderContext";
 
 export default function Card({
   title,
@@ -12,7 +16,14 @@ export default function Card({
   onClick,
   isHoverable,
   isSelected,
+  onAdd
 }) {
+
+// const { addProductToMenu } = useContext(OrderContext);
+const { removeProductFromMenuAndBasket } = useContext(OrderContext);
+
+
+
   // state (vide)
 
   // comportements (vide)
@@ -27,7 +38,12 @@ export default function Card({
     >
       <div className="card">
         {hasDeleteButton && (
-          <button className="delete-button" aria-label="delete-button" onClick={onDelete}>
+          <button
+            className="delete-button"
+            aria-label="delete-button"
+            onClick={onDelete}
+           
+          >
             <TiDelete className="icon" />
           </button>
         )}
@@ -43,14 +59,17 @@ export default function Card({
               <PrimaryButton
                 className="primary-button"
                 label={"Ajouter"}
-                onClick={(event) => event.stopPropagation()}
+                onClick={onAdd}
+                  
+
               />
+              
             </div>
           </div>
         </div>
       </div>
     </CardStyled>
-  )
+  );
 }
 
 const CardStyled = styled.div`
@@ -164,9 +183,10 @@ const CardStyled = styled.div`
       }
     }
 
-    ${({ isHoverable, isSelected }) => isHoverable && isSelected && selectedStyle}
+    ${({ isHoverable, isSelected }) =>
+      isHoverable && isSelected && selectedStyle}
   }
-`
+`;
 
 const hoverableStyle = css`
   :hover.card {
@@ -175,7 +195,7 @@ const hoverableStyle = css`
     box-shadow: ${theme.shadows.orangeHighlight};
     cursor: pointer;
   }
-`
+`;
 
 const selectedStyle = css`
   background: ${theme.colors.primary};
@@ -232,4 +252,4 @@ const selectedStyle = css`
       }
     }
   }
-`
+`;
