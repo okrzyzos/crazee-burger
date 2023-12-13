@@ -5,9 +5,12 @@ import { theme } from "../../../../../../theme/index";
 import { formatPrice } from "../../../../../../utils/maths.jsx";
 import Card from "../../../../reusable-ui/Card.jsx";
 import { checkIfProductIsClicked } from "./helper.jsx";
-import EMPTY_PRODUCT from "../../../../../../enums/product.js";
+import EMPTY_PRODUCT, {
+  IMAGE_COMING_SOON,
+} from "../../../../../../enums/product.js";
 import MenuEmpty from "./MenuEmpty.jsx";
 import MenuEmptieAdmin from "./MenuEmptieAdmin.jsx";
+import {  findObjectById } from "../../../../../../utils/array.jsx";
 
 const IMAGE_BY_DEFAULT = "/images/coming-soon.png";
 
@@ -16,26 +19,22 @@ export default function MenuProduct() {
     menuData,
     isAdminMode,
     handleDelete,
+    handleDeleteBasket,
     resetMenu,
     productSelected,
     setProductSelected,
     setIsCollapsed,
     setCurrentTabSelected,
     titleEditRef,
+    handleAddToBasket,
+    handleProductSelected,
   } = useContext(OrderContext);
   // state
 
   // comportements (gestionnaires d'événement ou "event handlers")
-  const handleClick = async (idProductClicked) => {
-    if (!isAdminMode) return;
-
-    await setIsCollapsed(false);
-    await setCurrentTabSelected("edit");
-    const productClickedOn = menuData.find(
-      (product) => product.id === idProductClicked
-    );
-    await setProductSelected(productClickedOn);
-    titleEditRef.current.focus();
+  const handleClick = (idProductClicked) => {
+    if (!isAdminMode) return
+    handleProductSelected(idProductClicked);
   };
 
   // affichage
@@ -47,9 +46,17 @@ export default function MenuProduct() {
   const handleCardDelete = (event, idProductToDelete) => {
     event.stopPropagation();
     handleDelete(idProductToDelete);
+    handleDeleteBasket(idProductToDelete);
     idProductToDelete === productSelected.id &&
       setProductSelected(EMPTY_PRODUCT);
     titleEditRef.current.focus();
+  };
+
+  const handleAddButton = (event, idProductAdd) => {
+    event.stopPropagation();
+
+    const productToAdd = findObjectById(idProductAdd, menuData);
+    handleAddToBasket(productToAdd);
   };
 
   return (
@@ -59,17 +66,21 @@ export default function MenuProduct() {
           <Card
             key={id}
             title={title}
-            imageSource={imageSource ? imageSource : IMAGE_BY_DEFAULT}
+            imageSource={imageSource ? imageSource : IMAGE_COMING_SOON}
             leftDescription={formatPrice(price)}
             hasDeleteButton={isAdminMode}
             onDelete={(event) => handleCardDelete(event, id)}
-            onClick={() => handleClick(id)}
+            onClick={isAdminMode ? () => handleProductSelected(id) : null}
             isHoverable={isAdminMode}
             isSelected={checkIfProductIsClicked(id, productSelected.id)}
+            onAdd={(event) => handleAddButton(event, id)}
           />
         );
       })}
     </MenuStyled>
+
+
+
   );
 }
 
