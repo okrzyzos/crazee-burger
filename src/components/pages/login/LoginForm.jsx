@@ -40,6 +40,7 @@ function LoginForm() {
 
           <InputWithIcon>
             <TextInput
+            className="input"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -80,6 +81,10 @@ const LoginFormStyled = styled.form`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .input {
+    width: 400px;
   }
 `;
 
