@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import { deepClone } from "../utils/array";
 import { fakeMenu } from "../fakeData/FakeMenu";
 import { toast } from "react-toastify";
@@ -6,8 +6,16 @@ import { toast } from "react-toastify";
 const UseMenu = () => {
   const [menuData, setMenuData] = useState(fakeMenu.LARGE);
 
+  // const addProductToMenu = (newProduct) => {
+  //   setMenuData([...menuData, newProduct]);
+  // };
+
   const addProductToMenu = (newProduct) => {
-    setMenuData([...menuData, newProduct]);
+    setMenuData((prevMenuData) => {
+      const addMenuData = [...prevMenuData];
+      addMenuData.unshift(newProduct);
+      return addMenuData;
+    });
   };
 
   const handleEdit = (productBeingEdited) => {
