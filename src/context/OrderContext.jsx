@@ -15,12 +15,16 @@ export default createContext({
   handleDelete: () => {},
   handleEdit: () => {},
   resetMenu: () => {},
-
+  basket: [],
   newProduct: {},
   setNewProduct: () => {},
-
+  handleAddToBasket: () => {},
+  calculateTotal: () =>{},
   productSelected: {},
+  handleDeleteBasket: () => {},
   setProductSelected: () => {},
+  removeProductFromMenuAndBasket: () => {},
+  handleProductSelected: () => {},
 
   titleEditRef: {},
 });
