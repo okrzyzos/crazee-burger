@@ -6,8 +6,10 @@ import Main from "./MainMenu/Main";
 import theme from "../../../theme/index";
 import OrderContext from "../../../context/OrderContext";
 import EMPTY_PRODUCT from "../../../enums/product";
+import {findObjectById } from "../../../utils/array";
 
 import UseMenu from "../../../hooks/UseMenu";
+import UseBasket from "../../../hooks/UseBasket";
 
 
 function OrderPage() {
@@ -20,7 +22,22 @@ function OrderPage() {
 
   const navigate = useNavigate();
 
+  
+
   const {handleEdit, handleDelete,resetMenu,addProductToMenu,menuData,setMenuData} = UseMenu()
+  const {basket,handleAddToBasket,calculateTotal,handleDeleteBasket,removeProductFromMenuAndBasket} = UseBasket()
+
+
+  const handleProductSelected =  async (idProductClicked) => {
+    const productClickedOn = findObjectById(idProductClicked,menuData)
+    await setIsCollapsed(false);
+    await setCurrentTabSelected("edit");
+    await setProductSelected(productClickedOn);
+    titleEditRef.current.focus();
+  }
+
+
+
   const orderContextValue = {
     isAdminMode,
     setAdminMode,
@@ -36,8 +53,19 @@ function OrderPage() {
     handleDelete,
     productSelected,
     setProductSelected,
-    titleEditRef
+    removeProductFromMenuAndBasket,
+    titleEditRef,
+    calculateTotal,
+    handleDeleteBasket,
+    basket,
+    handleAddToBasket,
+    handleProductSelected
   };
+
+
+
+
+
   return (
     <OrderContext.Provider value={orderContextValue}>
       <OrderPageStyled>
