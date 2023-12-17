@@ -8,13 +8,14 @@ import OrderContext from "../../../../../context/OrderContext";
 import { findObjectById } from "../../../../../utils/array";
 
 export default function BasketProducts() {
-  const { menuData, isAdminMode, handleDeleteBasket, basket,handleProductSelected,productSelected } =
+  const { menuData, isAdminMode, handleDeleteBasket, basket,handleProductSelected,productSelected,username } =
     useContext(OrderContext);
+
 
   
   const handleOnDelete = (event, id) => {
     event.stopPropagation();
-    handleDeleteBasket(id);
+    handleDeleteBasket(id,username);
   };
 
   return (
