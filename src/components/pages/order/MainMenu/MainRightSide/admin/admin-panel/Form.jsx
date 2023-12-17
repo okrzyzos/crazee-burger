@@ -6,7 +6,7 @@ import { getInputTextsConfig } from "./inputTextConfig";
 import PrimaryButton from "../../../../../reusable-ui/PrimaryButton";
 
 const Form = React.forwardRef(
-  ({ product, onSubmit, onChange, children, handleEdit }, ref) => {
+  ({ product, onSubmit, onChange, children, handleEdit,onFocus,onBlur }, ref) => {
     // state (vide)
 
     // comportements (vide)
@@ -28,6 +28,8 @@ const Form = React.forwardRef(
               {...input}
               key={input.id}
               onChange={onChange}
+              onFocus={onFocus}
+              onBlur={onBlur}
               version="minimalist"
               ref={ref && input.name === "title" ? ref : null}
             />
