@@ -8,15 +8,17 @@ import OrderContext from "../../../../../context/OrderContext";
 import BasketProducts from "./BasketProducts";
 
 export default function Basket() {
-  const { basket} = useContext(OrderContext);
+  const { basket,menuData} = useContext(OrderContext);
+
   const isBasketEmpty = basket.length === 0;
+
   return (
     <BasketStyled>
       <div className="header">
         <Header />
       </div>
       <div className="body">
-        {isBasketEmpty ? <BodyBasket /> : <BasketProducts   />}
+        {isBasketEmpty ? <BodyBasket isLoading={menuData === undefined} /> : <BasketProducts   />}
       </div>
       <div className="footer">
       <FooterBasket />
