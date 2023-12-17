@@ -81,12 +81,12 @@ function AddProductForm() {
   const imgDefault = "/images/coming-soon.png";
 
   const [imageSource, setImageSource] = useState("");
-  const { addProductToMenu } = useContext(OrderContext);
+  const { addProductToMenu,username } = useContext(OrderContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const newProduct = { title, price, imageSource }; // Créez l'objet produit ici
-    addProductToMenu(newProduct); // Utilisez la fonction passée en prop
+    addProductToMenu(newProduct,username); // Utilisez la fonction passée en prop
     toast.success("Ajouté avec succès !");
     setTitle("");
     setPrice("");

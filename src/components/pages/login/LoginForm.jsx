@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../reusable-ui/Logo";
 import theme from "../../../theme/index";
+import { authenticateUser } from "../../../api/user";
 
 import backgroundImg from "../../../assets/F03-burger-background.jpg";
 import { FaUserCircle } from "react-icons/fa";
@@ -19,13 +20,12 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (username) {
+   authenticateUser(username)
       navigate(`/order-page/${username}`);
       setUsername("");
       toast.success("connexion réussie");
-    }
   };
 
   return (

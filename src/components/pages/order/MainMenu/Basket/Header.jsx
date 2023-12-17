@@ -7,6 +7,7 @@ import { findObjectById } from "../../../../../utils/array";
 function Header() {
   const { basket,menuData } = useContext(OrderContext);
 
+
    const calculateSumToPay = () => {
     return basket.reduce((total, basketProduct) => {
       const menuProduct = findObjectById(basketProduct.id, menuData)
