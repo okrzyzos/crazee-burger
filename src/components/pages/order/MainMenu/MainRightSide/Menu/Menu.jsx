@@ -11,6 +11,7 @@ import EMPTY_PRODUCT, {
 import MenuEmpty from "./MenuEmpty.jsx";
 import MenuEmptieAdmin from "./MenuEmptieAdmin.jsx";
 import {  findObjectById } from "../../../../../../utils/array.jsx";
+import Loader from "./Loader.jsx";
 
 const IMAGE_BY_DEFAULT = "/images/coming-soon.png";
 
@@ -24,6 +25,7 @@ export default function MenuProduct() {
     productSelected,
     setProductSelected,
     setIsCollapsed,
+    username,
     setCurrentTabSelected,
     titleEditRef,
     handleAddToBasket,
@@ -37,16 +39,19 @@ export default function MenuProduct() {
     handleProductSelected(idProductClicked);
   };
 
+  if(menuData === undefined)
+    return <Loader />
+  
   // affichage
   if (menuData.length === 0) {
     if (!isAdminMode) return <MenuEmpty />;
-    return <MenuEmptieAdmin onReset={resetMenu} />;
+    return <MenuEmptieAdmin onReset={() =>resetMenu(username)} />;
   }
 
   const handleCardDelete = (event, idProductToDelete) => {
     event.stopPropagation();
-    handleDelete(idProductToDelete);
-    handleDeleteBasket(idProductToDelete);
+    handleDelete(idProductToDelete,username);
+    handleDeleteBasket(idProductToDelete,username);
     idProductToDelete === productSelected.id &&
       setProductSelected(EMPTY_PRODUCT);
     titleEditRef.current.focus();
@@ -56,7 +61,7 @@ export default function MenuProduct() {
     event.stopPropagation();
 
     const productToAdd = findObjectById(idProductAdd, menuData);
-    handleAddToBasket(productToAdd);
+    handleAddToBasket(productToAdd,username);
   };
 
   return (
