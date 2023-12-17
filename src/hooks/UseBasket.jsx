@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { fakeBasket } from "../fakeData/FakeBasket";
 import { deepClone, findObjectById} from "../utils/array";
 import { toast } from "react-toastify";
+import { setLocalStorage } from "../utils/window";
 
 const UseBasket = () => {
-  const [basket, setBasket] = useState(fakeBasket.EMPTY);
+  const [basket, setBasket] = useState([]);
 
-  const handleAddToBasket = (productAdd) => {
+  const handleAddToBasket = (productAdd,username) => {
     const basketCopy = deepClone(basket);
 
     const existingProduct = findObjectById(productAdd.id, basketCopy);
@@ -15,6 +16,7 @@ const UseBasket = () => {
       // Product already exists in the basket, update quantity
       existingProduct.quantity += 1;
       setBasket(basketCopy);
+      setLocalStorage(username, basketCopy);
       toast.success("Ajout menu in basket success! ");
       return;
     }
@@ -26,12 +28,14 @@ const UseBasket = () => {
     };
     basketCopy.push(newProductBasket);
     setBasket(basketCopy);
+    setLocalStorage(username, basketCopy);
+
     toast.success("Ajout menu in basket success! ");
   };
 
  
 
-  const handleDeleteBasket = (idBasket) => {
+  const handleDeleteBasket = (idBasket,username) => {
     const basketCopy = deepClone(basket);
 
     //2. manip de la copie state
@@ -41,10 +45,12 @@ const UseBasket = () => {
 
     //3. update du state
     setBasket(basketUpdated);
+    setLocalStorage(username, basketUpdated);
+
     toast.success("Supprimé avec success");
   };
 
-  return { basket, handleAddToBasket, handleDeleteBasket };
+  return { basket, handleAddToBasket, handleDeleteBasket,setBasket };
 };
 
 export default UseBasket;
