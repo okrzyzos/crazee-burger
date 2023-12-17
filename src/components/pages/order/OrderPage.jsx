@@ -1,4 +1,4 @@
-import React, { useState, useContext,useRef } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../../pages/order/Navbar/Navbar";
@@ -6,42 +6,58 @@ import Main from "./MainMenu/Main";
 import theme from "../../../theme/index";
 import OrderContext from "../../../context/OrderContext";
 import EMPTY_PRODUCT from "../../../enums/product";
-import {findObjectById } from "../../../utils/array";
+import { findObjectById } from "../../../utils/array";
+import { getMenu } from "../../../api/Product";
 
 import UseMenu from "../../../hooks/UseMenu";
 import UseBasket from "../../../hooks/UseBasket";
-
+import { initializeUserSession } from "./helpers/InitializeUserSession";
 
 function OrderPage() {
   const [isAdminMode, setAdminMode] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [productSelected, setProductSelected] = useState({ EMPTY_PRODUCT });
-  const titleEditRef = useRef()
+  const titleEditRef = useRef();
 
   const [currentTabSelected, setCurrentTabSelected] = useState("add");
 
   const navigate = useNavigate();
 
-  
+  const {
+    handleEdit,
+    handleDelete,
+    resetMenu,
+    addProductToMenu,
+    menuData,
+    setMenuData,
+  } = UseMenu();
+  const {
+    basket,
+    handleAddToBasket,
+    setBasket,
+    calculateTotal,
+    handleDeleteBasket,
+    removeProductFromMenuAndBasket,
+  } = UseBasket();
+  const { username } = useParams();
 
-  const {handleEdit, handleDelete,resetMenu,addProductToMenu,menuData,setMenuData} = UseMenu()
-  const {basket,handleAddToBasket,calculateTotal,handleDeleteBasket,removeProductFromMenuAndBasket} = UseBasket()
-
-
-  const handleProductSelected =  async (idProductClicked) => {
-    const productClickedOn = findObjectById(idProductClicked,menuData)
+  const handleProductSelected = async (idProductClicked) => {
+    const productClickedOn = findObjectById(idProductClicked, menuData);
     await setIsCollapsed(false);
     await setCurrentTabSelected("edit");
     await setProductSelected(productClickedOn);
     titleEditRef.current.focus();
-  }
+  };
 
-
+  useEffect(() => {
+    initializeUserSession(username, setMenuData, setBasket);
+  }, []);
 
   const orderContextValue = {
     isAdminMode,
     setAdminMode,
     isCollapsed,
+    username,
     currentTabSelected,
     setCurrentTabSelected,
     setIsCollapsed,
@@ -59,12 +75,8 @@ function OrderPage() {
     handleDeleteBasket,
     basket,
     handleAddToBasket,
-    handleProductSelected
+    handleProductSelected,
   };
-
-
-
-
 
   return (
     <OrderContext.Provider value={orderContextValue}>
