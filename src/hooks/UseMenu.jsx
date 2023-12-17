@@ -2,23 +2,29 @@ import React, { useState } from "react";
 import { deepClone } from "../utils/array";
 import { fakeMenu } from "../fakeData/FakeMenu";
 import { toast } from "react-toastify";
+import { syncBothmenu } from "../api/Product";
 
 const UseMenu = () => {
-  const [menuData, setMenuData] = useState(fakeMenu.LARGE);
+  const [menuData, setMenuData] = useState(undefined);
 
   // const addProductToMenu = (newProduct) => {
   //   setMenuData([...menuData, newProduct]);
   // };
 
-  const addProductToMenu = (newProduct) => {
-    setMenuData((prevMenuData) => {
-      const addMenuData = [...prevMenuData];
-      addMenuData.unshift(newProduct);
-      return addMenuData;
-    });
+  const addProductToMenu = (newProduct,username) => {
+
+      const menuCopy = deepClone(menuData)
+
+      const menuUpdated = [newProduct,...menuCopy]
+      setMenuData(menuUpdated)
+    toast.success("Ajouter avec success")
+
+    syncBothmenu(username,menuUpdated)
+
+
   };
 
-  const handleEdit = (productBeingEdited) => {
+  const handleEdit = (productBeingEdited,username) => {
     const indexOfProductToEdit = menuData.findIndex(
       (product) => product.id === productBeingEdited.id
     );
@@ -27,15 +33,19 @@ const UseMenu = () => {
       const updatedMenu = deepClone(menuData);
       updatedMenu[indexOfProductToEdit] = productBeingEdited;
       setMenuData(updatedMenu);
+    syncBothmenu(username,updatedMenu)
+
     }
   };
 
-  const resetMenu = () => {
+  const resetMenu = (username) => {
     setMenuData(fakeMenu.LARGE);
+    syncBothmenu(username,fakeMenu.LARGE)
+
     toast.success("Produits regénéré avec success");
   };
 
-  const handleDelete = (idOfProductToDelete) => {
+  const handleDelete = (idOfProductToDelete,username) => {
     //1. copy du state
     const menuCopy = deepClone(menuData);
 
@@ -43,10 +53,11 @@ const UseMenu = () => {
     const menuUpdated = menuCopy.filter(
       (product) => product.id !== idOfProductToDelete
     );
-    console.log("menuUpdated: ", menuUpdated);
 
     //3. update du state
     setMenuData(menuUpdated);
+    syncBothmenu(username,menuUpdated)
+
     toast.success("Supprimé avec success");
   };
 
