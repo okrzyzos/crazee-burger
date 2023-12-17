@@ -11,7 +11,7 @@ import { getMenu } from "../../../api/Product";
 
 import UseMenu from "../../../hooks/UseMenu";
 import UseBasket from "../../../hooks/UseBasket";
-import { initializeUserSession } from "./helpers/InitializeUserSession";
+import { initializeUserSession } from "./helpers/initializeUserSession";
 
 function OrderPage() {
   const [isAdminMode, setAdminMode] = useState(false);
