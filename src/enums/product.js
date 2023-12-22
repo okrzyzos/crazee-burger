@@ -1,14 +1,16 @@
- const EMPTY_PR0DUCT = Object.freeze ({
+export const EMPTY_PR0DUCT = Object.freeze ({
   id: "",
   title: "",
   imageSource: "",
   price: 0,
+  isAvailable: true,
+  isPublicised: false,
 });
 
 export const IMAGE_COMING_SOON = "/images/coming-soon.png";
+export const IMAGE_NO_STOCK = "/images/stock-epuise.png";
 
 
-export default EMPTY_PR0DUCT;
 
 export const BASKET_MESSAGE = {
   EMPTY:"Votre commaande est vide",
