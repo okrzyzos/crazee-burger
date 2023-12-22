@@ -6,41 +6,83 @@ import styled from "styled-components";
 import { checkIfProductIsClicked } from "../MainRightSide/Menu/helper";
 import OrderContext from "../../../../../context/OrderContext";
 import { findObjectById } from "../../../../../utils/array";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { basketAnimation } from "../../../../../theme/animations";
+import { formatPrice } from "../../../../../utils/maths";
+import { isAvailableOptions } from "../../../../../enums/select";
+import { convertStringToBoolean } from "../../../../../utils/string";
+import Sticker from "../../../reusable-ui/Sticker";
 
 export default function BasketProducts() {
-  const { menuData, isAdminMode, handleDeleteBasket, basket,handleProductSelected,productSelected,username } =
-    useContext(OrderContext);
+  const {
+    menuData,
+    isAdminMode,
+    handleDeleteBasket,
+    basket,
+    handleProductSelected,
+    productSelected,
+    username,
+  } = useContext(OrderContext);
 
-
-  
   const handleOnDelete = (event, id) => {
     event.stopPropagation();
-    handleDeleteBasket(id,username);
+    handleDeleteBasket(id, username);
   };
 
   return (
-    <div>
-      {basket.map((menu) => {
-        const menuProduct = findObjectById(menu.id, menuData);
+    <TransitionGroup
+      component={BasketProductsStyled}
+      className={"transition-group"}
+    >
+      {basket.map((basketProduct) => {
+        const menuProduct = findObjectById(basketProduct.id, menuData);
+        console.log("menu", menuProduct);
+
         return (
-          <BasketCard
-            key={menu.id}
-            imageSource={
-              menuProduct.imageSource
-                ? menuProduct.imageSource
-                : IMAGE_COMING_SOON
-            }
-            {...menuProduct}
-            isClickable={isAdminMode}
-            quantity={menu.quantity}
-            onClick={isAdminMode ? () => handleProductSelected(menu.id) : null}
-            isSelected={checkIfProductIsClicked(menu.id, productSelected.id)}
+          <CSSTransition
+            appear={true}
+            classNames={"animation-basket"}
+            key={basketProduct.id}
+            timeout={300}
           >
-            <DeleteIcon onClick={(event) => handleOnDelete(event, menu.id)} />
-          </BasketCard>
+            <div className="card-container">
+              {convertStringToBoolean(menuProduct.isPublicised) && (
+                <Sticker className="badge-new" />
+              )}
+              <BasketCard
+                {...menuProduct}
+                imageSource={
+                  menuProduct.imageSource
+                    ? menuProduct.imageSource
+                    : IMAGE_COMING_SOON
+                }
+                isClickable={isAdminMode}
+                quantity={basketProduct.quantity}
+                onClick={
+                  isAdminMode
+                    ? () => handleProductSelected(basketProduct.id)
+                    : null
+                }
+                isSelected={checkIfProductIsClicked(
+                  basketProduct.id,
+                  productSelected.id
+                )}
+                className={"card"}
+                price={
+                  convertStringToBoolean(menuProduct.isAvailable)
+                    ? formatPrice(menuProduct.price)
+                    : "non disponible"
+                }
+              >
+                <DeleteIcon
+                  onClick={(event) => handleOnDelete(event, basketProduct.id)}
+                />
+              </BasketCard>
+            </div>
+          </CSSTransition>
         );
       })}
-    </div>
+    </TransitionGroup>
   );
 }
 
@@ -54,4 +96,36 @@ const DeleteIcon = styled(RiDeleteBin2Fill)`
     color: red;
     cursor: pointer;
   }
+`;
+
+const BasketProductsStyled = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow-y: scroll;
+
+  .card-container {
+    .badge-new {
+      position: absolute;
+      z-index: 1;
+      margin-top: 15%;
+      left: 31%;
+      font-size: 12px;
+      top: 53px;
+      transform: translateX(-155%);
+    }
+    /* border: 1px solid blue; */
+    margin: 10px 16px;
+    height: 106px;
+    box-sizing: border-box;
+    position: relative;
+    :first-child {
+      margin-top: 20px;
+      /* border: 1px solid red; */
+    }
+    :last-child {
+      margin-bottom: 2px;
+    }
+  }
+  ${basketAnimation}
 `;

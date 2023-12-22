@@ -22,8 +22,8 @@ function LoginForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-   authenticateUser(username)
-      navigate(`/order-page/${username}`);
+   const userReceived = await authenticateUser(username)
+      navigate(`/order-page/${userReceived.username}`);
       setUsername("");
       toast.success("connexion réussie");
   };

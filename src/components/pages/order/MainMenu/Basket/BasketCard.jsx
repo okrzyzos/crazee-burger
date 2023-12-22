@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import styled,{css} from "styled-components";
+import styled, { css } from "styled-components";
 import { formatPrice } from "../../../../../utils/maths";
 import theme from "../../../../../theme";
+import CasinoEffect from "../../../reusable-ui/CasinoEffect";
 
 export default function BasketCard({
   imageSource,
@@ -9,6 +10,7 @@ export default function BasketCard({
   price,
   quantity,
   children,
+  className,
   isClickable,
   onClick,
   isSelected,
@@ -18,6 +20,7 @@ export default function BasketCard({
     <BasketCardStyled
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      className={className}
       onClick={onClick}
       isSelected={isSelected}
       isClickable={isClickable}
@@ -32,10 +35,12 @@ export default function BasketCard({
         <div className="content">
           <p className="title">{title}</p>
 
-          <span className="color-price">{formatPrice(price)}</span>
+          <span className="color-price">{price}</span>
         </div>
 
-        <div className="quantity">x {quantity}</div>
+        <div className="quantity">
+          <CasinoEffect count={`x ${quantity}`} />
+        </div>
         {isHovered && children}
       </div>
     </BasketCardStyled>
@@ -43,7 +48,6 @@ export default function BasketCard({
 }
 
 const BasketCardStyled = styled.div`
-
   cursor: ${({ isClickable }) => (isClickable ? "pointer" : " auto")};
   .banniere-img {
     background-color: white;
@@ -51,7 +55,7 @@ const BasketCardStyled = styled.div`
     justify-content: space-between;
     align-items: center;
     font-size: 25px;
-    margin: 25px;
+    margin-bottom: 35px;
     height: 86px;
     cursor: pointer;
 
@@ -77,16 +81,19 @@ const BasketCardStyled = styled.div`
         text-overflow: ellipsis;
         margin-bottom: 5px;
       }
-
       .color-price {
-        color: #ffa01b;
+        font-size: ${theme.fonts.size.SM};
+        font-weight: ${theme.fonts.weights.medium};
+        font-family: ${theme.fonts.family.openSans};
       }
     }
+    
 
     .image {
       width: 85px;
       height: 70px;
-      margin-top: 10px;
+      margin-bottom: 30px;
+      padding:5px;
       object-fit: contain; // Ajuste la taille de l'image tout en conservant ses proportions
       border-radius: 5px; // Facultatif : arrondi les coins de l'image
     }
@@ -96,13 +103,20 @@ const BasketCardStyled = styled.div`
       font-family: Amatic SC;
     }
 
-    ${({ isClickable, isSelected }) => isClickable && isSelected && selectedStyle}
+    ${({ isClickable, isSelected }) =>
+      isClickable && isSelected && selectedStyle}
   }
 `;
 
 const selectedStyle = css`
   background: ${theme.colors.primary};
-  .price,
+  .title {
+    color: ${theme.colors.dark};
+  }
+  .color-price {
+    color: ${theme.colors
+      .white}; // Add this line to change color when isSelected
+  }
   .quantity {
     color: ${theme.colors.white};
   }

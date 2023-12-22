@@ -2,7 +2,9 @@ export const deepClone  = (array) => {
     return JSON.parse(JSON.stringify(array));
 }
 
-
+export const isEmpty = (array) => {
+  return array.length === 0
+}
 
 
 export const findObjectById = (id, array) => {

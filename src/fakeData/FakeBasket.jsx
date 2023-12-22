@@ -1,5 +1,5 @@
 
-import EMPTY_PR0DUCT from "../enums/product"
+import { EMPTY_PR0DUCT } from "../enums/product"
 export const EMPTY = []
 
 export const SMALL = [

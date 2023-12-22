@@ -5,13 +5,13 @@ import { toast } from "react-toastify";
 import { syncBothmenu } from "../api/Product";
 
 const UseMenu = () => {
-  const [menuData, setMenuData] = useState(undefined);
+  const [menuData, setMenuData] = useState();
 
   // const addProductToMenu = (newProduct) => {
   //   setMenuData([...menuData, newProduct]);
   // };
 
-  const addProductToMenu = (newProduct,username) => {
+  const handleAdd = (newProduct,username) => {
 
       const menuCopy = deepClone(menuData)
 
@@ -65,10 +65,20 @@ const UseMenu = () => {
     handleEdit,
     handleDelete,
     resetMenu,
-    addProductToMenu,
+    handleAdd,
     menuData,
     setMenuData,
   };
 };
 
 export default UseMenu;
+
+
+
+
+
+
+
+
+
+

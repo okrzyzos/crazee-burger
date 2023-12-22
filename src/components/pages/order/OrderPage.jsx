@@ -5,7 +5,7 @@ import Navbar from "../../pages/order/Navbar/Navbar";
 import Main from "./MainMenu/Main";
 import theme from "../../../theme/index";
 import OrderContext from "../../../context/OrderContext";
-import EMPTY_PRODUCT from "../../../enums/product";
+import { EMPTY_PR0DUCT } from "../../../enums/product";
 import { findObjectById } from "../../../utils/array";
 import { getMenu } from "../../../api/Product";
 
@@ -16,7 +16,8 @@ import { initializeUserSession } from "./helpers/initializeUserSession";
 function OrderPage() {
   const [isAdminMode, setAdminMode] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [productSelected, setProductSelected] = useState({ EMPTY_PRODUCT });
+  const [productSelected, setProductSelected] = useState({ EMPTY_PR0DUCT });
+  const [newProduct,setNewProduct] = useState({ EMPTY_PR0DUCT });
   const titleEditRef = useRef();
 
   const [currentTabSelected, setCurrentTabSelected] = useState("add");
@@ -27,7 +28,7 @@ function OrderPage() {
     handleEdit,
     handleDelete,
     resetMenu,
-    addProductToMenu,
+    handleAdd,
     menuData,
     setMenuData,
   } = UseMenu();
@@ -61,13 +62,15 @@ function OrderPage() {
     currentTabSelected,
     setCurrentTabSelected,
     setIsCollapsed,
-    addProductToMenu,
     menuData,
     setMenuData,
     handleEdit,
     resetMenu,
     handleDelete,
+    handleAdd,
     productSelected,
+    newProduct,
+    setNewProduct,
     setProductSelected,
     removeProductFromMenuAndBasket,
     titleEditRef,
