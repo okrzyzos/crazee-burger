@@ -55,7 +55,6 @@ const BasketCardStyled = styled.div`
     justify-content: space-between;
     align-items: center;
     font-size: 25px;
-    margin-bottom: 35px;
     height: 86px;
     cursor: pointer;
 
