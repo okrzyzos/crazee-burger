@@ -7,3 +7,23 @@
 body {
   font-family: "Open Sans", sans-serif,;
 }
+
+.background-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px); /* Applique le flou lorsque la modal est ouverte */
+  z-index: 999; /* Assurez-vous qu'il est sous la modal (1000) mais au-dessus du contenu (2000) */
+  pointer-events: none; /* Empêche les interactions avec cet élément, permettant aux éléments sous-jacents de rester cliquables */
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-out; /* Durée et courbe de transition */
+}
