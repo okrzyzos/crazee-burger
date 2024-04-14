@@ -1,5 +1,6 @@
-import { useContext } from "react";
-import styled from "styled-components";
+
+import React, { useEffect,useContext,useState } from 'react';
+import styled,{css} from "styled-components";
 import OrderContext from "../../../../../../context/OrderContext.jsx";
 import { formatPrice } from "../../../../../../utils/maths.jsx";
 import theme from "../../../../../../theme/index.jsx";
@@ -17,6 +18,11 @@ import MenuEmptieAdmin from "./MenuEmptieAdmin.jsx";
 import { findObjectById } from "../../../../../../utils/array.jsx";
 import Loader from "./Loader.jsx";
 import { convertStringToBoolean } from "../../../../../../utils/string.js";
+import CustomModal from "../../../../reusable-ui/CustomModal.jsx";
+import  { setSessionCookie } from "../../../../../../api/user";
+import Cookies from 'js-cookie';
+
+
 
 
 export default function MenuProduct() {
@@ -35,6 +41,38 @@ export default function MenuProduct() {
     handleAddToBasket,
     handleProductSelected,
   } = useContext(OrderContext);
+  const [showModal,setShowModal] = useState(false);
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+
+  useEffect(() => {
+    // Check if the session cookie exists
+    const userId = Cookies.get('userId');
+    if (!userId) {
+      // Set the session cookie if it doesn't exist
+      setSessionCookie('userId', 'yourUserId'); // Adjust the parameters accordingly
+    }
+  
+    const timer = setTimeout(() => {
+      setShowModal(true);
+    }, 15 * 60 * 1000); // 3 minutes
+  
+    return () => clearTimeout(timer);
+  }, []);
+  
+ 
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setShowModal(true);
+  //   }, 10000);
+  
+  //   return () => clearTimeout(timer);
+  // }, []);
+
+
   // state
 
   // comportements (gestionnaires d'événement ou "event handlers")
@@ -90,9 +128,14 @@ export default function MenuProduct() {
           </CSSTransition>
         )
       })}
+       {showModal &&  <CustomModal onClose={closeModal} />}
     </TransitionGroup>
   )
 }
+
+
+
+
 const MenuStyled = styled.div`
   background: ${theme.colors.background_white};
   display: grid;
